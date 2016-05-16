@@ -51,6 +51,7 @@ public class HttpClient {
                 .addNetworkInterceptor(new StethoInterceptor())
                 .addNetworkInterceptor(new HttpCacheInterceptor())
                 .addInterceptor(new LoggingInterceptor())
+              //  .addInterceptor(new HttpLoggingInterceptor())
                 .cache(cache)
                 .build();
 
