@@ -27,6 +27,8 @@ def okHttpVersion = '3.2.0'
 def glideVersion = "3.7.0"
 def stethoVersion = "1.3.1"
 def jlogVersion = "1.0.5"
+def rxjavaVersion = "1.1.5"
+def rxandroidVersion = "1.2.0"
 def supportLibVersion = "23.3.0"
 
 project.ext {
@@ -38,6 +40,8 @@ project.ext {
     libStetho = "com.facebook.stetho:stetho:${stethoVersion}"
     libStethoOkhttp = "com.facebook.stetho:stetho-okhttp3:${stethoVersion}"
     libJlog = "com.jiongbull:jlog:${jlogVersion}"
+    libRxJava = "io.reactivex:rxjava:${rxjavaVersion}"
+    libRxAndroid = "io.reactivex:rxandroid:${rxandroidVersion}"
 
     //supportLib
     supportLib = "com.android.support:support-v4:$supportLibVersion"
