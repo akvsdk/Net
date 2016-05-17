@@ -1,10 +1,10 @@
 package com.ep.joy.net.subscribers;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.ep.joy.net.progress.ProgressCancelListener;
 import com.ep.joy.net.progress.ProgressDialogHandler;
+import com.ep.joy.net.utils.Toasts;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -24,7 +24,6 @@ public abstract class ProgressSubscriber<T> extends Subscriber<T> implements Pro
     private Context context;
 
     public ProgressSubscriber(Context context) {
-        this.context = context.getApplicationContext();
         mProgressDialogHandler = new ProgressDialogHandler(context, this, true);
     }
 
@@ -68,11 +67,11 @@ public abstract class ProgressSubscriber<T> extends Subscriber<T> implements Pro
     @Override
     public void onError(Throwable e) {
         if (e instanceof SocketTimeoutException) {
-            Toast.makeText(context, "网络中断，请检查您的网络状态", Toast.LENGTH_SHORT).show();
+            Toasts.showShort("网络中断，请检查您的网络状态");
         } else if (e instanceof ConnectException) {
-            Toast.makeText(context, "网络中断，请检查您的网络状态", Toast.LENGTH_SHORT).show();
+            Toasts.showShort("网络中断，请检查您的网络状态");
         } else {
-            Toast.makeText(context, "error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toasts.showShort("error:" + e.getMessage());
         }
         dismissProgressDialog();
 

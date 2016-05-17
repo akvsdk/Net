@@ -3,6 +3,7 @@ package com.ep.joy.net;
 import android.app.Application;
 import android.content.Context;
 
+import com.ep.joy.net.utils.Toasts;
 import com.facebook.stetho.Stetho;
 import com.jiongbull.jlog.JLog;
 
@@ -24,7 +25,8 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext = getApplicationContext();
+        mContext = this;
+        Toasts.register(this);
         Stetho.initializeWithDefaults(this);
         JLog.init(this)
                 .setDebug(BuildConfig.DEBUG);
