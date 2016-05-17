@@ -1,6 +1,7 @@
 package com.ep.joy.net.service;
 
 import com.ep.joy.net.bean.Car;
+import com.ep.joy.net.bean.JsonResult;
 import com.ep.joy.net.bean.New;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import rx.Observable;
 
 public interface TGService {
 //    @Headers("Cache-Control: public, max-age=30")
@@ -26,5 +28,12 @@ public interface TGService {
     @POST("http://222.177.210.200/public/news/getNewsList")
     @FormUrlEncoded
     Call<Car> getCar(@Field("newsTypeVal") String type, @Field("currentPage") String page);
+
+
+
+    @Headers("Cache-Control: public, max-age=30")
+    @GET("tnfs/api/list")
+    Observable<JsonResult<List<New>>> getImg (@Query("id") int id);
+
 
 }

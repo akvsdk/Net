@@ -1,6 +1,6 @@
 package com.ep.joy.net.gson;
 
-import android.util.Log;
+import android.widget.Toast;
 
 import com.ep.joy.net.App;
 import com.ep.joy.net.utils.NetWorkUtil;
@@ -26,7 +26,7 @@ public class HttpCacheInterceptor implements Interceptor {
             request = request.newBuilder()
                     .cacheControl(CacheControl.FORCE_CACHE)
                     .build();
-            Log.e("Okhttp", "no network");
+            Toast.makeText(App.getContext(), "请先检查网络", Toast.LENGTH_SHORT).show();
         }
 
         Response originalResponse = chain.proceed(request);

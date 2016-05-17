@@ -1,10 +1,13 @@
 package com.ep.joy.net.http;
 
-import com.ep.joy.net.bean.Car;
 import com.ep.joy.net.bean.New;
 import com.ep.joy.net.service.Factory;
+import com.ep.joy.net.utils.RxUtils;
 
 import java.util.List;
+
+import rx.Observable;
+import rx.Subscriber;
 
 /**
  * author  Joy
@@ -32,11 +35,15 @@ public class AppDao {
     }
 
 
-    public void fuck(MyBaseCallBack<Car> callback) {
-        Factory.provideImgService().getCar("ac", "1").enqueue(callback);
+    public void fuck(Subscriber<List<New>> subscriber, int id) {
+        Observable observable = Factory.provideImgService().getImg(id)
+                .map(new RxUtils.HttpResultFunc<List<New>>());
+        RxUtils.toSubscribe(observable, subscriber);
     }
 
     public void img(MyBaseCallBack<List<New>> callback) {
         Factory.provideImgService().getImgInfo(5).enqueue(callback);
     }
+
+
 }

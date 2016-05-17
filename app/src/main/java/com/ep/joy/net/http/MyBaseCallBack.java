@@ -3,6 +3,9 @@ package com.ep.joy.net.http;
 import android.content.Context;
 import android.widget.Toast;
 
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,7 +30,14 @@ public abstract class MyBaseCallBack<T> implements Callback<T> {
 
     @Override
     public void onFailure(Call<T> call, Throwable t) {
-        Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+        if (t instanceof SocketTimeoutException) {
+            Toast.makeText(context, "网络中断，请检查您的网络状态", Toast.LENGTH_SHORT).show();
+        } else if (t instanceof ConnectException) {
+            Toast.makeText(context, "网络中断，请检查您的网络状态", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "error:" + t.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     protected abstract void onSuccess(T result);

@@ -2,7 +2,6 @@ package com.ep.joy.net.http;
 
 import com.ep.joy.net.App;
 import com.ep.joy.net.gson.HttpCacheInterceptor;
-import com.ep.joy.net.gson.MyConverterFactory;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.jiongbull.jlog.JLog;
 
@@ -16,6 +15,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * author  Joy
@@ -48,8 +49,8 @@ public class HttpClient {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(7676, TimeUnit.MILLISECONDS)
                 .connectTimeout(7676, TimeUnit.MILLISECONDS)
-                .addNetworkInterceptor(new StethoInterceptor())
                 .addNetworkInterceptor(new HttpCacheInterceptor())
+                .addNetworkInterceptor(new StethoInterceptor())
                 .addInterceptor(new LoggingInterceptor())
               //  .addInterceptor(new HttpLoggingInterceptor())
                 .cache(cache)
@@ -57,8 +58,9 @@ public class HttpClient {
 
         singleton = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                //  .addConverterFactory(GsonConverterFactory.create())
-                .addConverterFactory(new MyConverterFactory())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                  .addConverterFactory(GsonConverterFactory.create())
+               // .addConverterFactory(new MyConverterFactory())
                 .client(okHttpClient)
                 .build();
     }
