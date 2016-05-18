@@ -29,6 +29,7 @@ def stethoVersion = "1.3.1"
 def jlogVersion = "1.0.5"
 def rxjavaVersion = "1.1.5"
 def rxandroidVersion = "1.2.0"
+def rxlifecycleVersion = "0.6.1"
 def supportLibVersion = "23.3.0"
 
 project.ext {
@@ -42,6 +43,8 @@ project.ext {
     libJlog = "com.jiongbull:jlog:${jlogVersion}"
     libRxJava = "io.reactivex:rxjava:${rxjavaVersion}"
     libRxAndroid = "io.reactivex:rxandroid:${rxandroidVersion}"
+    libRxLifecycle = "com.trello:rxlifecycle:${rxlifecycleVersion}"
+    libRxLifecycleComponents = "com.trello:rxlifecycle-components:${rxlifecycleVersion}"
 
     //supportLib
     supportLib = "com.android.support:support-v4:$supportLibVersion"
