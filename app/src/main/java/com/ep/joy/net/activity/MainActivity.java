@@ -1,8 +1,9 @@
-package com.ep.joy.net.view;
+package com.ep.joy.net.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,25 +11,23 @@ import com.ep.joy.net.R;
 import com.ep.joy.net.bean.New;
 import com.ep.joy.net.http.AppDao;
 import com.ep.joy.net.http.GlideProxy;
-import com.ep.joy.net.http.MyBaseCallBack;
 import com.ep.joy.net.subscribers.ProgressSubscriber;
 import com.jiongbull.jlog.JLog;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Observable;
 import rx.Subscriber;
-import rx.functions.Func1;
 
 public class MainActivity extends AppCompatActivity {
     private TextView mView;
     private ImageView mImageView;
     private static final String baseUrl = "http://tnfs.tngou.net/image";
-    int i = 0;
-    String mTest;
+
     private List<Students> studentsList = new ArrayList<>();
     private Subscriber<String> sub;
+    private int i=0;
+    private Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("test", mTest);
-    }
+
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -71,61 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void doHttp(View view) {
         // getCar();
-        //  test();
+         test();
 
-        rx();
-
-
-    }
-
-    private void rx() {
-
-        //     Observable.just("abc", "123").subscribe(sub);
-
-//        Observable.from(studentsList).subscribe(new Action1<Students>() {
-//            @Override
-//            public void call(Students students) {
-//                JLog.e(students.getId() + "");
-//            }
-//        });
-
-//        Observable.create(new Observable.OnSubscribe<String>() {
-//            @Override
-//            public void call(Subscriber<? super String> subscriber) {
-//                subscriber.onNext("123");
-//                subscriber.onNext("456");
-//            }
-//        }).subscribe(sub);
-
-//        Observable.from(studentsList).map(new Func1<Students, String>() {
-//            @Override
-//            public String call(Students students) {
-//                return students.getClas()[3];
-//            }
-//        })
-//                .subscribe(sub);
-        Observable.from(studentsList).flatMap(new Func1<Students, Observable<Students.Clas>>() {
-            @Override
-            public Observable<Students.Clas> call(Students students) {
-                return Observable.from(students.clas);
-            }
-        })
-                .subscribe(new Subscriber<Students.Clas>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(Students.Clas clas) {
-                        JLog.e("onNext " + clas);
-                    }
-                });
 
 
     }
@@ -152,32 +94,12 @@ public class MainActivity extends AppCompatActivity {
                 // Random random = new Random();
                 // int i = random.nextInt(10);
                 mView.setText(result.get(i).getTitle());
-                mTest = baseUrl + result.get(i).getImg();
+                String mTest = baseUrl + result.get(i).getImg();
                 GlideProxy.getInstance().loadImage(MainActivity.this, baseUrl + result.get(i).getImg(), mImageView);
 
             }
         }, 4);
     }
-
-    private void getCar() {
-
-        AppDao.getInstance().img(new MyBaseCallBack<List<New>>(this) {
-            @Override
-            protected void onSuccess(List<New> result) {
-                if (i < 19) {
-                    i++;
-                } else {
-                    i = 0;
-                }
-                // Random random = new Random();
-                // int i = random.nextInt(10);
-                mView.setText(result.get(i).getTitle());
-                mTest = baseUrl + result.get(i).getImg();
-                GlideProxy.getInstance().loadImage(MainActivity.this, baseUrl + result.get(i).getImg(), mImageView);
-            }
-        });
-    }
-
 
     class Students {
         private int id;

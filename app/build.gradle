@@ -38,4 +38,6 @@ dependencies {
     compile rootProject.ext.libJlog
     compile rootProject.ext.libRxJava
     compile rootProject.ext.libRxAndroid
+    compile rootProject.ext.libRxLifecycle
+    compile rootProject.ext.libRxLifecycleComponents
 }

@@ -4,6 +4,7 @@ import com.ep.joy.net.bean.JsonResult;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
@@ -16,7 +17,26 @@ import rx.schedulers.Schedulers;
  */
 public class RxUtils {
 
+    private RxUtils() {
+    }
 
+    /**
+     * 解除订阅
+     * @param subscription 订阅者
+     */
+    public static void unsubscribeIfNotNull(Subscription subscription) {
+        if (subscription != null) {
+            subscription.unsubscribe();
+        }
+    }
+
+
+    /**
+     * 指定网络线程
+     * @param observable  观察者
+     * @param subscriber  订阅者
+     * @param <T>           泛型
+     */
 
     public static <T> void toSubscribe(Observable<T> observable, Subscriber<T> subscriber) {
         observable.subscribeOn(Schedulers.io())
