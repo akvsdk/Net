@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void test() {
-        AppDao.getInstance().fuck(new ProgressSubscriber<List<New>>(MainActivity.this) {
+        AppDao.getInstance().getRxImg(new ProgressSubscriber<List<New>>(MainActivity.this) {
             @Override
             protected void onSuccess(List<New> result) {
                 if (i < 19) {

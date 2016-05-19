@@ -27,7 +27,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HttpClient {
 
     private static HttpClient mInstance;
-    private Cache cache;
     private Retrofit singleton;
 
     public static HttpClient getIns(String base_url) {
@@ -44,7 +43,7 @@ public class HttpClient {
 
         File cacheFileDir = App.getContext().getCacheDir();  //指定缓存目录
         File cacheFile = new File(cacheFileDir, "okHttpCache"); //指定缓存文件名
-        cache = new Cache(cacheFile, 1024 * 1024 * 100); //100Mb
+        Cache cache = new Cache(cacheFile, 1024 * 1024 * 100); //100Mb
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(7676, TimeUnit.MILLISECONDS)
@@ -55,6 +54,7 @@ public class HttpClient {
               //  .addInterceptor(new HttpLoggingInterceptor())
                 .cache(cache)
                 .build();
+
 
         singleton = new Retrofit.Builder()
                 .baseUrl(BASE_URL)

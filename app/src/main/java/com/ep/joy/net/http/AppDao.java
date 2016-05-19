@@ -1,6 +1,7 @@
 package com.ep.joy.net.http;
 
 import com.ep.joy.net.bean.New;
+import com.ep.joy.net.bean.TG;
 import com.ep.joy.net.service.Factory;
 import com.ep.joy.net.utils.RxUtils;
 
@@ -35,13 +36,13 @@ public class AppDao {
     }
 
 
-    public void fuck(Subscriber<List<New>> subscriber, int id) {
+    public void getRxImg(Subscriber<List<New>> subscriber, int id) {
         Observable observable = Factory.provideImgService().getImg(id)
                 .map(new RxUtils.HttpResultFunc<List<New>>());
         RxUtils.toSubscribe(observable, subscriber);
     }
 
-    public void img(MyBaseCallBack<List<New>> callback) {
+    public void getimg(MyBaseCallBack<TG> callback) {
         Factory.provideImgService().getImgInfo(5).enqueue(callback);
     }
 
