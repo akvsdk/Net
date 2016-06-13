@@ -33,6 +33,7 @@ dependencies {
     compile rootProject.ext.libRetrofitAdapterRxJava
     compile rootProject.ext.libOkHttp
     compile rootProject.ext.libGlide
+    compile rootProject.ext.libGlideOkHttp
     compile rootProject.ext.libStetho
     compile rootProject.ext.libStethoOkhttp
     compile rootProject.ext.libJlog
@@ -40,4 +41,6 @@ dependencies {
     compile rootProject.ext.libRxAndroid
     compile rootProject.ext.libRxLifecycle
     compile rootProject.ext.libRxLifecycleComponents
+    compile rootProject.ext.libOkHttpLog
+
 }

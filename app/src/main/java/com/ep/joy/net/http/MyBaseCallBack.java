@@ -1,7 +1,8 @@
 package com.ep.joy.net.http;
 
 import android.content.Context;
-import android.widget.Toast;
+
+import com.ep.joy.net.utils.Toasts;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -19,8 +20,8 @@ import retrofit2.Response;
 public abstract class MyBaseCallBack<T> implements Callback<T> {
     protected Context context;
 
-    public MyBaseCallBack(Context context) {
-        this.context = context;
+    public MyBaseCallBack() {
+
     }
 
     @Override
@@ -31,11 +32,11 @@ public abstract class MyBaseCallBack<T> implements Callback<T> {
     @Override
     public void onFailure(Call<T> call, Throwable t) {
         if (t instanceof SocketTimeoutException) {
-            Toast.makeText(context, "网络中断，请检查您的网络状态", Toast.LENGTH_SHORT).show();
+            Toasts.showShort("网络中断，请检查您的网络状态");
         } else if (t instanceof ConnectException) {
-            Toast.makeText(context, "网络中断，请检查您的网络状态", Toast.LENGTH_SHORT).show();
+            Toasts.showShort("网络中断，请检查您的网络状态");
         } else {
-            Toast.makeText(context, "error:" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            Toasts.showShort("网络中断，请检查您的网络状态");
         }
 
     }

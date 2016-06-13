@@ -15,15 +15,6 @@ import com.ep.joy.net.fragment.FragmentThree;
 import com.ep.joy.net.fragment.FragmentTwo;
 
 
-/**
- * 类描述:
- * 创建人:malin
- * 创建时间:2016 16-4-8 17:36
- * 备注:{@link }
- * 修改人:
- * 修改时间:
- * 修改备注:
- */
 public class MainTabActivity extends AppCompatActivity {
 
     private Toolbar mToolBar;

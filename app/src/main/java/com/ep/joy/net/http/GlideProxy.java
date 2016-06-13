@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ep.joy.net.R;
 import com.ep.joy.net.weight.GlideCircleTransform;
 
@@ -62,6 +63,7 @@ public class GlideProxy {
                 .animate(R.anim.image_load)
                 .placeholder(R.color.material_white)
                 .error(R.color.material_white)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .crossFade()
                 .into(imageView);
     }
@@ -99,6 +101,17 @@ public class GlideProxy {
                 .crossFade()
                 .transform(new GlideCircleTransform(context))
                 .into(imageView);
+    }
+
+    // 清理缓存
+    public static void clear(Context context) {
+        Glide.get(context).clearMemory();
+        //        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                Glide.get(context).clearDiskCache();
+//            }
+//        }).start();
     }
 
 }
