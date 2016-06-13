@@ -52,7 +52,7 @@ public class FragmentOne extends BaseFragment {
 
     @Override
     protected void initView(View view) {
-        mView = (TextView) view.findViewById(R.id.tv);
+        mView = (TextView) view.findViewById(R.id.mztv);
         mImageView = (ImageView) view.findViewById(R.id.img);
         btn = (Button) view.findViewById(R.id.next);
         //test();

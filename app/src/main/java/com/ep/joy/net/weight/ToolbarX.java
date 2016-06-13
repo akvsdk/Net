@@ -44,6 +44,7 @@ public class ToolbarX {
     }
 
     public ToolbarX setSubTitle(String text) {
+        mActionBar.setTitle("");
         titleTv.setText(text);
         return this;
 

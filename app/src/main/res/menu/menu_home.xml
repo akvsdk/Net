@@ -4,13 +4,13 @@
     <item
         android:orderInCategory="101"
         app:showAsAction="never"
-        android:title="@string/menu1"
+        android:title="保存"
         android:id="@+id/action_one">
     </item>
     <item
         android:orderInCategory="102"
         app:showAsAction="never"
-        android:title="@string/menu2"
+        android:title="分享"
         android:id="@+id/action_two">
     </item>
 </menu>

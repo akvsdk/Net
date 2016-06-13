@@ -1,12 +1,15 @@
 package com.ep.joy.net.base;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
+import com.ep.joy.net.R;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import rx.Observable;
@@ -49,10 +52,14 @@ public abstract class BaseActivity extends RxAppCompatActivity {
      *
      * @param msg
      */
-    protected void showSnackbar(View v, String msg) {
+    protected void showToast(@Nullable View v, String msg) {
         //防止遮盖虚拟按键
-        if (null != msg && !TextUtils.isEmpty(msg)) {
-            Snackbar.make(v, msg, Snackbar.LENGTH_SHORT).show();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && v != null) {
+            if (null != msg && !TextUtils.isEmpty(msg)) {
+                Snackbar.make(v, msg, Snackbar.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -65,6 +72,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     @Override
     public void finish() {
         super.finish();
+        overridePendingTransition(R.anim.anmi_in_right_left,R.anim.anmi_out_right_left);
         BaseAppManager.getInstance().removeActivity(this);
     }
 
@@ -77,6 +85,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected void readyGo(Class<?> clazz) {
         Intent intent = new Intent(this, clazz);
         startActivity(intent);
+        overridePendingTransition(R.anim.anmi_in_right_left,R.anim.anmi_out_right_left);
     }
 
     /**
@@ -91,6 +100,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
             intent.putExtras(bundle);
         }
         startActivity(intent);
+        overridePendingTransition(R.anim.anmi_in_right_left,R.anim.anmi_out_right_left);
     }
 
     /**
@@ -102,6 +112,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         Intent intent = new Intent(this, clazz);
         startActivity(intent);
         finish();
+        overridePendingTransition(R.anim.anmi_in_right_left,R.anim.anmi_out_right_left);
     }
 
 
@@ -118,6 +129,8 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         }
         startActivity(intent);
         finish();
+        overridePendingTransition(R.anim.anmi_in_right_left,R.anim.anmi_out_right_left);
+        BaseAppManager.getInstance().removeActivity(this);
     }
 
     /**
@@ -129,6 +142,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected void readyGoForResult(Class<?> clazz, int requestCode) {
         Intent intent = new Intent(this, clazz);
         startActivityForResult(intent, requestCode);
+        overridePendingTransition(R.anim.anmi_in_right_left,R.anim.anmi_out_right_left);
     }
 
     /**
@@ -145,6 +159,9 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         }
         startActivityForResult(intent, requestCode);
     }
+
+
+
 
     public void onUnsubscribe() {
         if (mCompositeSubscription != null) {
