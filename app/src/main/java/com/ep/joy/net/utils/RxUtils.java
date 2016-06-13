@@ -22,6 +22,7 @@ public class RxUtils {
 
     /**
      * 解除订阅
+     *
      * @param subscription 订阅者
      */
     public static void unsubscribeIfNotNull(Subscription subscription) {
@@ -33,9 +34,10 @@ public class RxUtils {
 
     /**
      * 指定网络线程
-     * @param observable  观察者
-     * @param subscriber  订阅者
-     * @param <T>           泛型
+     *
+     * @param observable 观察者
+     * @param subscriber 订阅者
+     * @param <T>        泛型
      */
 
     public static <T> void toSubscribe(Observable<T> observable, Subscriber<T> subscriber) {
@@ -46,6 +48,17 @@ public class RxUtils {
     }
 
 
+
+    public static <T> Observable.Transformer<T, T> rxSchedulerHelper() {
+        return new Observable.Transformer<T, T>() {
+            @Override
+            public Observable<T> call(Observable<T> tObservable) {
+                return tObservable.subscribeOn(Schedulers.io())
+                        .unsubscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread());
+            }
+        };
+    }
 
 
     /**

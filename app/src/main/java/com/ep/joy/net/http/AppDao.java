@@ -5,6 +5,7 @@ import com.ep.joy.net.bean.TG;
 import com.ep.joy.net.service.Factory;
 import com.ep.joy.net.utils.RxUtils;
 
+import java.util.HashMap;
 import java.util.List;
 
 import rx.Observable;
@@ -37,7 +38,10 @@ public class AppDao {
 
 
     public void getRxImg(Subscriber<List<New>> subscriber, int id) {
-        Observable observable = Factory.provideImgService().getImg(id)
+        HashMap<String, String> map = new HashMap<>();
+        map.put("id", String.valueOf(id));
+        map.put("row", "3");
+        Observable observable = Factory.provideImgService().getImg(map)
                 .map(new RxUtils.HttpResultFunc<List<New>>());
         RxUtils.toSubscribe(observable, subscriber);
     }
