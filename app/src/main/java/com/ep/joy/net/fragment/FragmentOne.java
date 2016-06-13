@@ -72,7 +72,7 @@ public class FragmentOne extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rx();
+                test();
             }
         });
 
@@ -101,6 +101,9 @@ public class FragmentOne extends Fragment {
         AppDao.getInstance().fuck(new ProgressSubscriber<List<New>>(getActivity()) {
             @Override
             protected void onSuccess(List<New> result) {
+                result.get(0).getCount();
+
+
                 if (i < 19) {
                     i++;
                 } else {

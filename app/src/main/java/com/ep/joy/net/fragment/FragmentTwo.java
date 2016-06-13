@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ep.joy.net.R;
+import com.ep.joy.net.bean.Q;
+import com.google.gson.Gson;
+import com.jiongbull.jlog.JLog;
 
 
 /**
@@ -24,6 +27,8 @@ public class FragmentTwo extends Fragment {
 
     private static final String ARGS_INSTANCE = FragmentTwo.class.getSimpleName();
     int mInt;
+    private Gson gson;
+    private String s;
 
     public static FragmentTwo newInstance(int instance) {
         Bundle args = new Bundle();
@@ -49,4 +54,16 @@ public class FragmentTwo extends Fragment {
             mInt = args.getInt(ARGS_INSTANCE);
         }
     }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+         gson =new Gson();
+        Q q = new Q("Joy",18,true);
+         s= gson.toJson(q);
+        JLog.e(s);
+        Q q1=gson.fromJson(s,Q.class);
+        JLog.e(q1.toString());
+    }
+
 }
