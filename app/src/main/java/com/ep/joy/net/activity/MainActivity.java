@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ep.joy.net.R;
-import com.ep.joy.net.base.BaseActivity;
+import com.ep.joy.net.base.ToolbarActvitiy;
 import com.ep.joy.net.bean.New;
 import com.ep.joy.net.http.AppDao;
 import com.ep.joy.net.http.GlideProxy;
@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends ToolbarActvitiy {
     private TextView mView;
     private ImageView mImageView;
     private static final String baseUrl = "http://tnfs.tngou.net/image";
@@ -32,9 +32,9 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initViewsAndEvents() {
-        mView = (TextView) findViewById(R.id.tv);
+        mView = (TextView) findViewById(R.id.mztv);
         mImageView = (ImageView) findViewById(R.id.img);
-
+        getToolbar().setDisplayHomeAsUpEnabled(false).setSubTitle("Home");
     }
 
 
@@ -47,6 +47,7 @@ public class MainActivity extends BaseActivity {
     public void doHttp(View view) {
         // getCar();
         //   test();
+        showSnackbar(i + "");
         HashMap<String, String> map = new HashMap<>();
         map.put("id", 5 + "");
         map.put("row", "3");

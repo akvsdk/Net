@@ -40,6 +40,7 @@ public class MainTabActivity extends AppCompatActivity {
 
     private static class TabFragmentPagerAdapter extends FragmentPagerAdapter {
 
+        private String tabTitles[] = new String[]{"首页","发现","我的","设置"};
 
         public TabFragmentPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -75,24 +76,7 @@ public class MainTabActivity extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0: {
-                    return "0";
-                }
-                case 1: {
-                    return "1";
-                }
-                case 2: {
-                    return "2";
-                }
-                case 3: {
-                    return "3";
-                }
-
-                default: {
-                    return "0";
-                }
-            }
+            return tabTitles[position];
         }
     }
 }

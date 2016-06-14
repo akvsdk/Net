@@ -32,7 +32,8 @@ public class HttpClient {
     public static HttpClient getIns(String base_url) {
         if (mInstance == null) {
             synchronized (HttpClient.class) {
-                if (mInstance == null) mInstance = new HttpClient(base_url);
+                if (mInstance == null)
+                    mInstance = new HttpClient(base_url);
             }
         }
         return mInstance;
