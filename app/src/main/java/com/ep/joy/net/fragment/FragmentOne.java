@@ -9,12 +9,15 @@ import android.widget.TextView;
 import com.ep.joy.net.R;
 import com.ep.joy.net.base.BaseFragment;
 import com.ep.joy.net.bean.New;
+import com.ep.joy.net.bean.Q;
 import com.ep.joy.net.bean.TG;
 import com.ep.joy.net.http.AppDao;
 import com.ep.joy.net.http.GlideProxy;
 import com.ep.joy.net.http.MyBaseCallBack;
 import com.ep.joy.net.service.Factory;
 import com.ep.joy.net.subscribers.ProgressSubscriber;
+import com.ep.joy.net.utils.Events;
+import com.ep.joy.net.utils.RxBus;
 import com.ep.joy.net.utils.RxUtils;
 
 import java.util.ArrayList;
@@ -57,8 +60,8 @@ public class FragmentOne extends BaseFragment {
         btn = (Button) view.findViewById(R.id.next);
         //test();
         //test2();
-
-
+        Q q = new Q("Joy", 18, true);
+        RxBus.getInstance().send(Events.DO, q);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
