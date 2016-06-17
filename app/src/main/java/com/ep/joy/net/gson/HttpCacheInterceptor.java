@@ -16,6 +16,13 @@ import okhttp3.Response;
  */
 
 public class HttpCacheInterceptor implements Interceptor {
+    //设缓存有效期为两天
+    public static final long CACHE_STALE_SEC = 60 * 60 * 24 * 2;
+    //查询缓存的Cache-Control设置，为if-only-cache时只查询缓存而不会请求服务器，max-stale可以配合设置缓存失效时间
+    public static final String CACHE_CONTROL_CACHE = "only-if-cached, max-stale=" + CACHE_STALE_SEC;
+    //查询网络的Cache-Control设置，头部Cache-Control设为max-age=0时则不会使用缓存而请求服务器
+    public static final String CACHE_CONTROL_NETWORK = "max-age=0";
+
 
     @Override
     public Response intercept(Chain chain) throws IOException {

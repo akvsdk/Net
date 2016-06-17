@@ -9,6 +9,7 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
@@ -28,9 +29,8 @@ public interface TGService {
     Call<TG> getImgInfo(@Query("id") int id);
 
 
-    @Headers("Cache-Control: public, max-age=30")
     @GET("tnfs/api/list")
-    Observable<JsonResult<List<New>>> getImg(@QueryMap Map<String, String> map);
+    Observable<JsonResult<List<New>>> getImg(@Header("Cache-Control") String cacheControl,@QueryMap Map<String, String> map);
 
 }
 

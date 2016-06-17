@@ -62,11 +62,8 @@ public class MainTabActivity extends BaseActivity {
                 case 3: {
                     return FragmentFour.newInstance(3);
                 }
-
-                default: {
-                    return FragmentOne.newInstance(0);
-                }
             }
+            return null;
         }
 
         @Override

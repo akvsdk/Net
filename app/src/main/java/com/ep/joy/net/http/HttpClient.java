@@ -2,6 +2,7 @@ package com.ep.joy.net.http;
 
 import com.ep.joy.net.App;
 import com.ep.joy.net.gson.HttpCacheInterceptor;
+import com.ep.joy.net.utils.NetWorkUtil;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.jiongbull.jlog.JLog;
 
@@ -73,7 +74,7 @@ public class HttpClient {
 
             long t1 = System.nanoTime();
             JLog.e(String.format("Sending request %s on %s%n%s",
-                    request.url(), chain.connection(), request.headers()));
+                    request.url(), request.method(), request.headers()));
 
             Response response = chain.proceed(request);
 
@@ -84,6 +85,11 @@ public class HttpClient {
             return response;
         }
     }
+
+    public static String getCacheControl() {
+        return NetWorkUtil.isNetConnected(App.getContext()) ? HttpCacheInterceptor.CACHE_CONTROL_NETWORK : HttpCacheInterceptor.CACHE_CONTROL_CACHE;
+    }
+
 
     public <T> T createService(Class<T> clz) {
         return singleton.create(clz);

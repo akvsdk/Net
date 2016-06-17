@@ -6,11 +6,14 @@ import android.widget.TextView;
 
 import com.ep.joy.net.R;
 import com.ep.joy.net.base.BaseFragment;
+import com.ep.joy.net.bean.New;
 import com.ep.joy.net.bean.Q;
 import com.ep.joy.net.utils.Events;
 import com.ep.joy.net.utils.RxBus;
 import com.google.gson.Gson;
 import com.trello.rxlifecycle.FragmentEvent;
+
+import java.util.List;
 
 import rx.functions.Action1;
 
@@ -63,10 +66,11 @@ public class FragmentTwo extends BaseFragment {
                 .onNext(new Action1<Events<?>>() {
                     @Override
                     public void call(Events<?> events) {
-                        Q q = events.getContent();
-                        tv.setText(q.toString());
+                        List<New> q = events.getContent();
+                        tv.setText(q.get(0).getTitle());
                     }
                 }).create();
+
 
         tv.setOnClickListener(new View.OnClickListener() {
             @Override

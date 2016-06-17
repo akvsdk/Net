@@ -10,6 +10,7 @@ import com.ep.joy.net.base.ToolbarActvitiy;
 import com.ep.joy.net.bean.New;
 import com.ep.joy.net.http.AppDao;
 import com.ep.joy.net.http.GlideProxy;
+import com.ep.joy.net.http.HttpClient;
 import com.ep.joy.net.service.Factory;
 import com.ep.joy.net.subscribers.ProgressSubscriber;
 import com.ep.joy.net.utils.RxUtils;
@@ -51,7 +52,7 @@ public class MainActivity extends ToolbarActvitiy {
         HashMap<String, String> map = new HashMap<>();
         map.put("id", 5 + "");
         map.put("row", "3");
-        addSubscription(Factory.provideImgService().getImg(map)
+        addSubscription(Factory.provideImgService().getImg(HttpClient.getCacheControl(),map)
                         .map(new RxUtils.HttpResultFunc<List<New>>())
                 , new ProgressSubscriber<List<New>>(this) {
                     @Override

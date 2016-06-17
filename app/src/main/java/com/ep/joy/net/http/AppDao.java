@@ -41,7 +41,7 @@ public class AppDao {
         HashMap<String, String> map = new HashMap<>();
         map.put("id", String.valueOf(id));
         map.put("row", "3");
-        Observable observable = Factory.provideImgService().getImg(map)
+        Observable observable = Factory.provideImgService().getImg(HttpClient.getCacheControl(), map)
                 .map(new RxUtils.HttpResultFunc<List<New>>());
         RxUtils.toSubscribe(observable, subscriber);
     }

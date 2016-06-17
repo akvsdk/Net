@@ -13,6 +13,7 @@ import com.ep.joy.net.bean.Q;
 import com.ep.joy.net.bean.TG;
 import com.ep.joy.net.http.AppDao;
 import com.ep.joy.net.http.GlideProxy;
+import com.ep.joy.net.http.HttpClient;
 import com.ep.joy.net.http.MyBaseCallBack;
 import com.ep.joy.net.service.Factory;
 import com.ep.joy.net.subscribers.ProgressSubscriber;
@@ -55,13 +56,18 @@ public class FragmentOne extends BaseFragment {
 
     @Override
     protected void initView(View view) {
+        Bundle args = getArguments();
+        if (args != null) {
+            mInt = args.getInt(ARGS_INSTANCE);
+        }
+
         mView = (TextView) view.findViewById(R.id.mztv);
         mImageView = (ImageView) view.findViewById(R.id.img);
         btn = (Button) view.findViewById(R.id.next);
         //test();
         //test2();
-        Q q = new Q("Joy", 18, true);
-        RxBus.getInstance().send(Events.DO, q);
+//        Q q = new Q("Joy", 25, true);
+//        RxBus.getInstance().send(Events.DO, q);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +79,7 @@ public class FragmentOne extends BaseFragment {
                 mView.setText(bean.get(i).getTitle());
                 String mTest = baseUrl + bean.get(i).getImg();
                 GlideProxy.getInstance().loadImage(getActivity(), mTest, mImageView);
+                RxBus.getInstance().send(Events.SEND4, new Q("HHHHHHHHHHH", 18, false));
             }
         });
     }
@@ -82,7 +89,7 @@ public class FragmentOne extends BaseFragment {
         Map<String, String> map = new HashMap<>();
         map.put("id", "4");
         map.put("row", "10");
-        Observable observable = Factory.provideImgService().getImg(map).map(new RxUtils.HttpResultFunc<List<New>>());
+        Observable observable = Factory.provideImgService().getImg(HttpClient.getCacheControl(),map).map(new RxUtils.HttpResultFunc<List<New>>());
         Subscriber subscriber = new ProgressSubscriber<List<New>>(getActivity()) {
             @Override
             protected void onSuccess(List<New> result) {
@@ -92,6 +99,7 @@ public class FragmentOne extends BaseFragment {
                 } else {
                     i = 0;
                 }
+                RxBus.getInstance().send(Events.DO, result);
                 mView.setText(bean.get(i).getTitle());
                 String mTest = baseUrl + bean.get(i).getImg();
                 GlideProxy.getInstance().loadImage(getActivity(), mTest, mImageView);
@@ -99,15 +107,6 @@ public class FragmentOne extends BaseFragment {
 
         };
         addSubscription(observable, subscriber);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle args = getArguments();
-        if (args != null) {
-            mInt = args.getInt(ARGS_INSTANCE);
-        }
     }
 
 

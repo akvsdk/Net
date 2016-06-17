@@ -1,13 +1,17 @@
 package com.ep.joy.net.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.ep.joy.net.R;
+import com.ep.joy.net.base.BaseFragment;
+import com.ep.joy.net.bean.Q;
+import com.ep.joy.net.utils.Events;
+import com.ep.joy.net.utils.RxBus;
+import com.jiongbull.jlog.JLog;
+
+import rx.functions.Action1;
 
 
 /**
@@ -19,11 +23,12 @@ import com.ep.joy.net.R;
  * 修改时间:
  * 修改备注:
  */
-public class FragmentThree extends Fragment {
+public class FragmentThree extends BaseFragment {
 
 
     private static final String ARGS_INSTANCE = FragmentThree.class.getSimpleName();
     int mInt;
+    TextView tv;
 
     public static FragmentThree newInstance(int instance) {
         Bundle args = new Bundle();
@@ -34,11 +39,35 @@ public class FragmentThree extends Fragment {
     }
 
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_three_layout, container, false);
-        return view;
+    protected int getContentViewLayoutID() {
+        return R.layout.fragment_three_layout;
+    }
+
+    @Override
+    protected void initView(View view) {
+        tv = (TextView) view.findViewById(R.id.tv_three);
+    }
+
+    @Override
+    protected void initData() {
+        RxBus.with(this)
+                .setEvent(Events.SEND4)
+                .onNext(new Action1<Events<?>>() {
+                    @Override
+                    public void call(Events<?> events) {
+                        Q q1 = events.getContent();
+                        tv.setText(q1.toString());
+                        //JLog.e(q1.toString());
+                    }
+                })
+                .onError(new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        JLog.e(throwable.getMessage());
+                    }
+                })
+                .create();
     }
 
     @Override
