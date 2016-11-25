@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ep.joy.net.R;
+import com.ep.joy.net.activity.MainTabActivity;
 import com.ep.joy.net.base.BaseFragment;
 import com.ep.joy.net.bean.Q;
 import com.ep.joy.net.utils.Events;
@@ -50,6 +51,12 @@ public class FragmentFour extends BaseFragment {
             mInt = args.getInt(ARGS_INSTANCE);
         }
         tv = (TextView) view.findViewById(R.id.tv_four);
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainTabActivity) getActivity()).setItem(0,"呵呵");
+            }
+        });
 
     }
 

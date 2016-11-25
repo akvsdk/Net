@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.ep.joy.net.R;
 import com.ep.joy.net.base.BaseActivity;
@@ -12,6 +13,7 @@ import com.ep.joy.net.fragment.FragmentFour;
 import com.ep.joy.net.fragment.FragmentOne;
 import com.ep.joy.net.fragment.FragmentThree;
 import com.ep.joy.net.fragment.FragmentTwo;
+import com.jiongbull.jlog.JLog;
 
 
 public class MainTabActivity extends BaseActivity {
@@ -38,6 +40,10 @@ public class MainTabActivity extends BaseActivity {
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
+    public void setItem(int index, String s) {
+        mViewPager.setCurrentItem(index);
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+    }
 
     private static class TabFragmentPagerAdapter extends FragmentPagerAdapter {
 
@@ -76,5 +82,11 @@ public class MainTabActivity extends BaseActivity {
         public CharSequence getPageTitle(int position) {
             return tabTitles[position];
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JLog.e("\"onResume\"");
     }
 }
